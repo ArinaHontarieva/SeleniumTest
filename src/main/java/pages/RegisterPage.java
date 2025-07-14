@@ -1,6 +1,8 @@
 package pages;
 
 import lombok.Getter;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +30,24 @@ public class RegisterPage extends BasePage {
 
     @FindBy(xpath = "//button[@class='btn' and @type='submit']")
     private WebElement registerButton;
+
+    @FindBy(id = "emptyFname")
+    private WebElement emptyFnameError;
+
+    @FindBy(id = "emptyLname")
+    private WebElement emptyLnameError;
+
+    @FindBy(id = "emailError")
+    private WebElement emailError;
+
+    @FindBy(id = "passwordError")
+    private WebElement passwordError;
+
+    @FindBy(id = "matchError")
+    private WebElement emptyConfirmPasswordError;
+
+    @FindBy(id = "ageError")
+    private WebElement ageError;
 
     public RegisterPage(WebDriver driver) {
         super(driver);

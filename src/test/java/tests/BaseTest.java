@@ -54,15 +54,20 @@ public abstract class BaseTest {
         loginPage.clickRedirectToRegistrationButton();
     }
 
-    protected void fillRegistrationFormAndSubmit() {
+    protected void fillRegistrationFormAndSubmit(String name,
+                                                 String lastName,
+                                                 String email,
+                                                 String password,
+                                                 String confirmPassword,
+                                                 String birthDay) {
         RegisterPage registerPage = new RegisterPage(getDriver());
 
-        registerPage.fillName("Test");
-        registerPage.fillLastName("Testov");
-        registerPage.fillEmail("test_testov@gmail.com");
-        registerPage.fillPassword("Password123");
-        registerPage.fillConfirmPassword("Password123");
-        registerPage.fillBirthDate("01012000");
+        registerPage.fillName(name);
+        registerPage.fillLastName(lastName);
+        registerPage.fillEmail(email);
+        registerPage.fillPassword(password);
+        registerPage.fillConfirmPassword(confirmPassword);
+        registerPage.fillBirthDate(birthDay);
 
         registerPage.clickRegisterButton();
     }
@@ -70,6 +75,16 @@ public abstract class BaseTest {
     protected void goToProfile() {
         MainWishlistPage mainWishlistPage = new MainWishlistPage(getDriver());
         mainWishlistPage.clickProfileIcon();
+    }
+
+    protected void updateUserEmail(String newEmail) {
+        ProfilePage profilePage = new ProfilePage(getDriver());
+        profilePage.updateEmail(newEmail);
+    }
+
+    protected boolean isProfileUpdateSuccessMessageShown() {
+        ProfilePage profilePage = new ProfilePage(getDriver());
+        return profilePage.isProfileUpdatedMessageVisible();
     }
 
     protected void deleteUserAccount() {
@@ -117,5 +132,14 @@ public abstract class BaseTest {
         CreateWishWindow wishWindow = new CreateWishWindow(getDriver());
         wishWindow.fillTitle(title);
         wishWindow.clickSave();
+    }
+
+    protected boolean isErrorVisibleById(String id) {
+        try {
+            WebElement errorElement = getDriver().findElement(By.id(id));
+            return errorElement.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
